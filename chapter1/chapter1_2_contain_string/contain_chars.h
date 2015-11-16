@@ -21,6 +21,8 @@
 extern bool brute_force_contain_chars(const char *pattern, const char *sub_string);
 extern bool char_table_contain_chars(const char *pattern, const char *sub_string);
 extern bool prime_check_contain_chars(const char *pattern, const char *sub_string);
+extern bool sort_contain_chars(const char *pattern, const char *sub_string);
+extern bool bitmap_check_contain_chars(const char *pattern, const char *sub_string);
 
 #endif
 

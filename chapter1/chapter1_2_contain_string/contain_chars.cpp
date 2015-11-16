@@ -1,4 +1,6 @@
 #include <cassert>
+#include <cstring>
+#include <algorithm>
 
 /*
 Check if all of the characters of string in pattern.
@@ -95,6 +97,84 @@ bool prime_check_contain_chars(const char *pattern, const char *sub_string)
 	return true;
 }
 
+bool sort_contain_chars(const char *pattern, const char *sub_string)
+{
+#define TMP_BUF_LEN			(64)
+	if (!(pattern && sub_string)) {
+		return false;
+	}
 
+
+	int pattern_len = strlen(pattern);
+	int sub_len = strlen(sub_string);
+
+	if (!(pattern_len < TMP_BUF_LEN && sub_len < TMP_BUF_LEN)) {
+		return false;
+	}
+
+	char tmp_pat[64];
+	char tmp_sub[64];
+
+	strcpy(tmp_pat, pattern);
+	strcpy(tmp_sub, sub_string);
+
+	std::sort(tmp_pat, tmp_pat+pattern_len);
+	std::sort(tmp_sub, tmp_sub+sub_len);
+
+	while (*sub_string) {
+		while (*pattern) {
+			if (*sub_string == *pattern) {
+				break;
+			} else if (*pattern < *sub_string) {
+				++pattern;
+				continue;
+			} else {
+				return false;
+			}
+		}
+
+		if ('\0' == *pattern) {
+			return false;
+		}
+
+		++sub_string;
+	}
+
+	return true;
+}
+
+bool bitmap_check_contain_chars(const char *pattern, const char *sub_string)
+{
+	if (!(pattern && sub_string)) {
+		return false;
+	}
+
+	unsigned long pattern_sigs = 0;
+
+	while (*pattern) {
+		unsigned char value = *pattern;
+		value = value - 'a';
+
+		assert(value < sizeof(pattern_sigs)*8);
+
+		pattern_sigs |= (1<<value);
+
+		++pattern;
+	}
+
+	while (*sub_string) {
+		unsigned char value = *sub_string;
+		value = value - 'a';
+
+		assert(value < sizeof(pattern_sigs)*8);
+
+		if (!(pattern_sigs & (1 << value))) {
+			return false;
+		}
+		++sub_string;
+	}
+
+	return true;
+}
 
 

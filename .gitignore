@@ -33,6 +33,11 @@ tags
 *.cmake
 CMakeFiles/
 Makefile
+pro_si/
+*.IAB
+*.IAD
+*.I*
+*.P*
 
 # text
 *.txt
