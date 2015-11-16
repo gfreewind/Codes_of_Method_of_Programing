@@ -26,3 +26,16 @@
 *.exe
 *.out
 *.app
+
+# Project files
+cscope.*
+tags
+*.cmake
+CMakeFiles/
+Makefile
+
+# text
+*.txt
+
+# tmp files
+.swp
