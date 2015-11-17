@@ -27,7 +27,10 @@ static void right_move_string_one_chr(char *str, int len)
 
 char *brute_force_rotate_string(char *str, int rotate_len)
 {
-	assert(str);
+
+	if (!str) {
+		return NULL;
+	}
 
 	int len = strlen(str);
 
@@ -48,3 +51,36 @@ char *brute_force_rotate_string(char *str, int rotate_len)
 	return str;
 }
 
+static void reverse_string(char *str, int len)
+{
+	for (int i = 0; i < len/2; ++i) {
+		char t = str[i];
+		str[i] = str[len-1-i];
+		str[len-1-i] = t;
+	}
+}
+
+char *three_reverse_rotate_string(char *str, int rotate_len)
+{
+
+	if (!str) {
+		return NULL;
+	}
+
+	int len = strlen(str);
+
+	rotate_len %= len;
+
+	if (rotate_len > 0) {
+		reverse_string(str, rotate_len);
+		reverse_string(str+rotate_len, len-rotate_len);
+		reverse_string(str, len);
+	} else {
+		rotate_len = len+rotate_len;
+		reverse_string(str, rotate_len);
+		reverse_string(str+rotate_len, len-rotate_len);
+		reverse_string(str, len);
+	}
+
+	return str;
+}
