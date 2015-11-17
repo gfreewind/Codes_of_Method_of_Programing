@@ -70,6 +70,27 @@ TEST(BruteForceRotateString, NullStr)
 	ASSERT_STREQ(NULL, brute_force_rotate_string(NULL, 2));
 }
 
+TEST(rotate_string_by_word, NormalCase)
+{
+	char test1[] = "I am student";
+	char test2[] = "Hello world";
+
+	ASSERT_STREQ("student am I", rotate_string_by_word(test1));
+	ASSERT_STREQ("world Hello", rotate_string_by_word(test2));
+}
+
+TEST(rotate_string_by_word, NullStr)
+{
+	ASSERT_STREQ(NULL, rotate_string_by_word(NULL));
+}
+
+TEST(rotate_string_by_word, OneWord)
+{
+	char test1[] = "Hello";
+	
+	ASSERT_STREQ("Hello", rotate_string_by_word(test1));
+}
+
  
 int main(int argc, char **argv) 
 {

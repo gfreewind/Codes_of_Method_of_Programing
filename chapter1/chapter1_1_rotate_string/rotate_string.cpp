@@ -84,3 +84,31 @@ char *three_reverse_rotate_string(char *str, int rotate_len)
 
 	return str;
 }
+
+char *rotate_string_by_word(char *str)
+{
+	if (!str) {
+		return NULL;
+	}
+
+	int len = strlen(str);
+
+	char *start, *end;
+
+	start = end = str;
+
+	while (start < str+len) {
+		while (*end != ' ' && *end != '\0') {
+			++end;
+		}
+		reverse_string(start, end-start);
+		++end;
+		start = end;
+	}
+	
+	reverse_string(str, len);
+
+	return str;
+}
+
+
