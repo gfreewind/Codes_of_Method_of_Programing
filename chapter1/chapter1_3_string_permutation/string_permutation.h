@@ -19,7 +19,7 @@
 #define STRING_PERMUTATION_H_
 
 extern void string_permutation_by_recursive(const char *str);
-
+extern void string_permutation_by_promotion(const char *str);
 
 #endif
 

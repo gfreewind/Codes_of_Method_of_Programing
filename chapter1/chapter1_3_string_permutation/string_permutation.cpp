@@ -48,4 +48,57 @@ void string_permutation_by_recursive(const char *str)
 	std::cout << "There are " << count << " permutation of " << str << std::endl;
 }
 
+static bool generate_next_string_promotion(char *str, int len)
+{
+	int i;
+
+	if (len <= 1) {
+		return false;
+	}
+
+	// Find the most right pos which is bigger than former
+	for (i = len-2; i >= 0; --i) {
+		if (str[i] < str[i+1]) {
+			break;
+		}
+	}
+
+	if (i < 0) {
+		return false;
+	}
+
+	int k;
+	// Find the first one which is bigger than str[i]
+	for (k = len-1; k > i; --k) {
+		if (str[k] > str[i]) {
+			break;
+		}
+	}
+
+	if (k == i) {
+		return false;
+	}
+
+	std::swap(str[i], str[k]);
+	std::reverse(str+i+1, str+len);
+
+	return true;
+
+}
+
+void string_permutation_by_promotion(const char *str)
+{
+	std::string ss = str;
+	int count = 0;
+
+	std::sort(ss.begin(), ss.end());
+
+	do {
+		std::cout << ss << std::endl;
+		++count;
+	} while (generate_next_string_promotion(const_cast<char*>(ss.c_str()), ss.length()));
+
+	std::cout << "There are " << count << " permutation of " << str << std::endl;
+}
+
 
