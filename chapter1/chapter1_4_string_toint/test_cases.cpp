@@ -13,6 +13,7 @@ TEST(string_toint, NormalTest)
 	ASSERT_EQ(-1, string_toint("-1"));
 	ASSERT_EQ(-123, string_toint("-123"));
 	ASSERT_EQ(-123456789, string_toint("-123456789"));
+	ASSERT_EQ(12345, string_toint("+12345"));
 }
 
 TEST(string_toint, EdgeTest)

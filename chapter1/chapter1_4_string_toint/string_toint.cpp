@@ -30,6 +30,8 @@ int string_toint(const char* str)
 	if ('-' == *str) {
 		negative = true;
 		++str;
+	} else if ('+' == *str) {
+		++str;
 	}
 
 	while (*str) {
