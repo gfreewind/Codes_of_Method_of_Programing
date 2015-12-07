@@ -28,24 +28,31 @@ int long_echo_string_by_iter(const char *str)
 
 	for (int i = 0; i < len; ++i) {
 		int j;
+		int c;
+		
 		//odd case
+		c = 1;
 		for (j = 0; i-j-1 >= 0 && i+j+1 < len; ++j) {
 			if (str[i-j-1] != str[i+j+1]) {
 				break;
 			}
+			c = 1+2*(j+1);
 		}
-		if (j > max) {
-			max = j;
+		
+		if (c > max) {
+			max = c;
 		}
 
 		//even case
+		c = 0;
 		for (j = 0; i-j >= 0 && i+j+1 < len; ++j) {
 			if (str[i-j] != str[i+j+1]) {
 				break;
 			}
+			c = 2*(j+1);
 		}
-		if (j > max) {
-			max = j;
+		if (c > max) {
+			max = c;
 		}
 	}	
 
