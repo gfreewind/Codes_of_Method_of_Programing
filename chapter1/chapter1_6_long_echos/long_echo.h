@@ -19,6 +19,7 @@
 #define LONG_ECHO_H_
 
 extern int long_echo_string_by_iter(const char *str);
+extern int long_echo_string_by_manacher(const char *str);
 
 #endif
 
