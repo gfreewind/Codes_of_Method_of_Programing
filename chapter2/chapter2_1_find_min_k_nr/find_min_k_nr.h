@@ -19,6 +19,7 @@
 #define FIND_MIN_K_NR_H_
 
 extern int find_min_k_by_sort(int *array, int size, int k, int *result);
+extern int find_min_k_by_partition(int *array, int size, int k, int *result);
 
 #endif
 
