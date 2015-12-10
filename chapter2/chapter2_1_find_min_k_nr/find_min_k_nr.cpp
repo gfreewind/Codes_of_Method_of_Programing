@@ -19,7 +19,7 @@
 #include <cstring>
 #include <cassert>
 
-int find_min_k_by_sort(int *array, int size, int k, int *result)
+int find_min_k_nrs_by_sort(int *array, int size, int k, int *result)
 {
 	assert(array&&result);
 
@@ -75,7 +75,7 @@ static int partion(int *array, int size, int k)
 	return k;
 }
 
-int find_min_k_by_partition(int *array, int size, int k, int *result)
+int find_min_k_nrs_by_partition(int *array, int size, int k, int *result)
 {
 	assert(array && result);
 
@@ -94,4 +94,6 @@ int find_min_k_by_partition(int *array, int size, int k, int *result)
 	memcpy(result, array, k*sizeof(*array));
 	return k;
 }
+
+
 
