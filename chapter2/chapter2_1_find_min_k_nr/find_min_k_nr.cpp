@@ -95,5 +95,35 @@ int find_min_k_nrs_by_partition(int *array, int size, int k, int *result)
 	return k;
 }
 
+int find_min_k_nrs_by_insert(int *array, int size, int k, int *result)
+{
+	assert(array && result);
+
+	if (k <= 0) {
+		return 0;
+	}
+
+	if (k >= size) {
+		memcpy(result, array, size*sizeof(*array));
+		return size;
+	}
+
+	for (int i = k; i < size; ++i) {
+		int max = 0;
+		
+		for (int j = 1; j < k; ++j) {
+			if (array[j] > array[max]) {
+				max = j;
+			}
+		}
+
+		if (array[max] > array[i]) {
+			std::swap(array[max], array[i]);
+		}
+	}
+
+	memcpy(result, array, k*sizeof(*array));
+	return k;
+}
 
 

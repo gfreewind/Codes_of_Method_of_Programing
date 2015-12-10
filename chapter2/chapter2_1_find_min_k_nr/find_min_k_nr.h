@@ -20,6 +20,7 @@
 
 extern int find_min_k_nrs_by_sort(int *array, int size, int k, int *result);
 extern int find_min_k_nrs_by_partition(int *array, int size, int k, int *result);
+extern int find_min_k_nrs_by_insert(int *array, int size, int k, int *result);
 
 #endif
 
