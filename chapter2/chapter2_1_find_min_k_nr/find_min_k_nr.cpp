@@ -126,4 +126,87 @@ int find_min_k_nrs_by_insert(int *array, int size, int k, int *result)
 	return k;
 }
 
+/*
+Current heap is right, just insert new one to tail,then compare it
+Left child: 2i+1;
+Right child: 2i+2;
+*/
+static void max_heapify(int *array, int node, int max_size)
+{
+	int left, right, largest;
+
+	do {
+		largest = node;
+		left = 2*node+1;
+		if (array[left] > array[largest] && left < max_size) {
+			largest = left;
+		}
+		right = 2*node+2;
+		if (array[right] > array[largest] && right < max_size) {
+			largest = right;
+		}
+		if (largest == node) {
+			// It is on right pos;
+			break;
+		} else {
+			std::swap(array[largest], array[node]);
+			node = largest;
+		}
+	} while (1);
+}
+
+static void build_max_heap(int *array, int size)
+{
+	if (size <= 1) {
+		return;
+	}
+
+	for (int i = (size-1)/2; i >= 0; --i) {
+		max_heapify(array, i, size);
+	}
+}
+
+void heap_sort(int *array, int size)
+{
+	if (1 == size) {
+		return;
+	}
+
+	build_max_heap(array, size);
+
+	for (int i = size-1; i > 0; --i) {
+		std::swap(array[0], array[i]);
+		max_heapify(array, 0, i);
+	}
+}
+
+
+int find_min_k_nrs_by_heap_sort(int *array, int size, int k, int *result)
+{
+	
+	assert(array && result);
+
+	if (k <= 0) {
+		return 0;
+	}
+
+	if (k >= size) {
+		memcpy(result, array, size*sizeof(*array));
+		return size;
+	}
+
+	
+	build_max_heap(array, k);
+
+	for (int i = k; i < size; ++i) {
+		if (array[i] < array[0]) {
+			std::swap(array[i], array[0]);
+			max_heapify(array, 0, k);
+		}
+	}
+
+	memcpy(result, array, k*sizeof(*array));
+
+	return k;
+}
 
