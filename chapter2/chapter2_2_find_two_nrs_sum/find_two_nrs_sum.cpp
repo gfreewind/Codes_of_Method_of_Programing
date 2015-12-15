@@ -27,10 +27,7 @@ void find_two_nrs_sum_by_endpoints(int *array, int size, int sum)
 	int *tail = array+(size-1);
 	int s;
 
-	while (1) {
-		if (head >= tail) {
-			break;
-		}	
+	while (head < tail) {			
 		s = *head + *tail;
 		if (s > sum) {
 			--tail;
@@ -42,7 +39,8 @@ void find_two_nrs_sum_by_endpoints(int *array, int size, int sum)
 			++head;
 			--tail;
 		}
-	}
+		
+	}	
 }
 
 
