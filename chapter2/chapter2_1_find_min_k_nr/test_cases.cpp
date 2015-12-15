@@ -62,6 +62,12 @@ TEST(find_min_k_nrs_by_partition, NormalTest)
 	int dup_result1[] = {1};
 	int dup_result2[] = {1,1};
 	int dup_result5[] = {1,1,2,2,3};
+	int same_array[] = {1, 1, 1, 1, 1};
+	int same_result[5];
+	int same_result1[] = {1};
+	int same_result2[] = {1, 1};
+	int same_result3[] = {1, 1, 1};
+	int same_result5[] = {1, 1, 1, 1, 1};
 
 	std::random_shuffle(array, array+20);
 	find_min_k_nrs_by_partition(array, 20, 1, result);
@@ -95,6 +101,18 @@ TEST(find_min_k_nrs_by_partition, NormalTest)
 	find_min_k_nrs_by_partition(dup_array, 10, 5, dup_result);
 	std::sort(dup_result, dup_result+5);
 	ASSERT_TRUE(0 == memcmp(dup_result, dup_result5, sizeof(dup_result5)));
+
+	find_min_k_nrs_by_partition(same_array, 5, 1, same_result);
+	ASSERT_TRUE(0 == memcmp(same_result, same_result1, sizeof(same_result1)));
+
+	find_min_k_nrs_by_partition(same_array, 5, 2, same_result);
+	ASSERT_TRUE(0 == memcmp(same_result, same_result2, sizeof(same_result2)));
+	
+	find_min_k_nrs_by_partition(same_array, 5, 3, same_result);
+	ASSERT_TRUE(0 == memcmp(same_result, same_result3, sizeof(same_result3)));
+	
+	find_min_k_nrs_by_partition(same_array, 5, 5, same_result);
+	ASSERT_TRUE(0 == memcmp(same_result, same_result5, sizeof(same_result5)));
 }
 
 TEST(find_min_k_nrs_by_insert, NormalTest)

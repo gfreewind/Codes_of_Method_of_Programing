@@ -42,37 +42,30 @@ static int partion(int *array, int size, int k)
 {
 	int i, j;
 	i = 0; 
-	j = size-1;
+	j = size-2;
+
+	//swap array[size-1] and array[k]
+	std::swap(array[size-1], array[k]);
 	while (1) {
-		while (array[i]<=array[k] && i < k) {
+		while (array[i] < array[size-1] && i <= j) {
 			i++;
 		}
 
-		while (array[j]>=array[k] && j > k) {
+		while (array[j] >= array[size-1] && j > i) {
 			j--;
 		}
 
-		if (i < j) {
-			if (i < k && j > k) {
-				std::swap(array[i], array[j]);
-				i++;
-				j--;
-			} else if (i < k) {
-				std::swap(array[i], array[k]);
-				i = 0;
-				j = size-1;
-			} else if (j > k) {
-				std::swap(array[j], array[k]);
-				i = 0;
-				j = size-1;
-			}
-			continue;
+		if (i >= j) {
+			break;
 		}
-		
-		break;
-	}
 
-	return k;
+		std::swap(array[i], array[j]);
+		++i;
+		--j;
+	}
+	std::swap(array[size-1], array[i]);
+
+	return i+1;
 }
 
 int find_min_k_nrs_by_partition(int *array, int size, int k, int *result)
@@ -88,7 +81,35 @@ int find_min_k_nrs_by_partition(int *array, int size, int k, int *result)
 		return size;
 	}
 
-	partion(array, size, k);
+	int *a = array;
+	int s = size;
+	int c = k;
+	int ret;
+
+	while (1) {
+		if (s > 2) {
+			ret = partion(a, s, c);
+			if (ret == c) {
+				// from a[0] to a[ret] are the smallest k numbers
+				break;
+			} else if (ret > c) {
+				// continue partion
+				s = ret;
+			} else {
+				// a[0] .. a[ret] are the results. we need to find others
+				a = a + ret;
+				s = s-ret;
+				c = c - ret;
+			}
+		} else if (s == 2) {
+			if (a[0] >= a[1]) {
+				std::swap(a[0], a[1]);
+			}
+			break;
+		} else {
+			break;
+		}
+	}
  
 	//Now array[0]~array[k] are smallest 
 	memcpy(result, array, k*sizeof(*array));
