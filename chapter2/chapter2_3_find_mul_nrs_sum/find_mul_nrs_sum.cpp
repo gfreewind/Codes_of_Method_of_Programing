@@ -79,7 +79,7 @@ static void _find_mul_nrs_sum_by_recursive(int *array, int size, int count, int 
 }
 
 
-void find_mul_nrs_sum(int n, int sum)
+void find_mul_nrs_sum_by_recursive(int n, int sum)
 {
 	int array[n];
 
@@ -92,5 +92,43 @@ void find_mul_nrs_sum(int n, int sum)
 		_find_mul_nrs_sum_by_recursive(array, n, i, sum, result);
 	}
 }
+
+static void _sum_of_k_nrs(int cur, int k, int left, int m, std::vector<bool> x)
+{
+	x[k] = true;
+	if (cur + k == m) {
+		// That's we expected
+		for (int i = 0; i <= k; ++i) {
+			if (x[i]) {
+				std::cout << i << " ";
+			}
+		}
+		std::cout << std::endl;
+	} else {
+		if (cur+k+(k+1) <= m) {
+			// Selected k, and go on
+			_sum_of_k_nrs(cur+k, k+1, left-k, m, x);
+		}
+		if ((cur+(left-k) >= m) && (cur + (k+1) <= m)) {
+			// Don't select k, and go on
+			x[k] = false;
+			_sum_of_k_nrs(cur, k+1, left-k, m, x);
+		}
+		
+	}
+}
+
+void find_mul_nrs_sum_by_recusive2(int n, int m)
+{
+	std::vector<bool> x(n+1);
+	int sum = (n+1)*n/2;
+
+	if (1 > m || sum < m) {
+		return;
+	}
+
+	_sum_of_k_nrs(0, 1, sum, m, x);
+}
+
 
 
