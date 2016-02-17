@@ -95,7 +95,7 @@ int long_echo_string_by_manacher(const char *str)
 	int id;
 	int len = ss.size();
 
-	for (i = 0; i < len; ++i) {
+	for (i = 1; i < len; ++i) {
 		if (mx > i) {
 			p[i] = std::min(p[2*id-i], mx-i);
 		} else {
